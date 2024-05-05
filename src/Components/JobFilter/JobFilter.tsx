@@ -1,8 +1,7 @@
-import React from "react";
 import { TextField, MenuItem, Button, Box } from "@mui/material";
 
 interface FilterProps {
-  filters: any; // Define the type of your filters object
+  filters: object;
   onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onApplyFilters: () => void;
@@ -94,7 +93,7 @@ const JobFilters: React.FC<FilterProps> = ({
         value={filters.searchCompany}
         onChange={onSearchChange}
         size="small"
-        sx={{ marginRight: 2, width: 200 }} // Adjust width as needed
+        sx={{ marginRight: 2, width: 200 }}
       />
       <Button variant="contained" onClick={onApplyFilters}>
         Apply Filters

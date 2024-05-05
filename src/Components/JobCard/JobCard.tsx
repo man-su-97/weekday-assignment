@@ -73,11 +73,13 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
               </Typography>
               {blurredText && (
                 <Button
-                  sx={{ position: "absolute", bottom: 2, left: "10rem" }}
+                  sx={{ position: "absolute", bottom: 1, right: "120px" }}
                   size="small"
                   onClick={() => openPopup(content)}
                 >
-                  <Typography sx={{ color: "#7B77E5", fontWeight: "bold" }}>
+                  <Typography
+                    sx={{ color: "blue", fontSize: "20", fontWeight: "bold" }}
+                  >
                     View Job
                   </Typography>
                 </Button>
