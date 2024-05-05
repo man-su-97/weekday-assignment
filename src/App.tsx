@@ -1,7 +1,12 @@
 import "./App.css";
+import { JobCard } from "./Components/JobCard/JobCard";
 
 function App() {
-  return <>Hello</>;
+  return (
+    <>
+      <JobCard />
+    </>
+  );
 }
 
 export default App;
