@@ -8,30 +8,17 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import PopupCard from "../../components/JobCard/PopupCard";
 import { JobCard } from "../JobCard/JobCard";
-
-interface JobDetails {
-  companyName: string;
-  jdLink: string;
-  jdUid: string;
-  jobDetailsFromCompany: string;
-  jobRole: string;
-  location: string;
-  logoUrl: string;
-  maxExp: number;
-  maxJdSalary: number;
-  minExp: number;
-  minJdSalary: number;
-  salaryCurrencyCode: string;
-}
+import { IJobDescription } from "../../types/proptypes";
+import PopupCard from "../JobDetailsPopup/JDPopupCard";
+import JobFilters from "../JobFilter/JobFilter";
 
 interface ApiResponse {
-  jdList: JobDetails[];
+  jdList: IJobDescription[];
   totalCount: number;
 }
 
-export function AppLayout() {
+export function JobListings() {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -43,7 +30,9 @@ export function AppLayout() {
     remote: "",
   });
   const [showPopup, setShowPopup] = useState(false);
-  const [popupContent, setPopupContent] = useState<JobDetails | null>(null);
+  const [popupContent, setPopupContent] = useState<IJobDescription | null>(
+    null
+  );
   const [searchCompany, setSearchCompany] = useState(""); // State for search company
 
   useEffect(() => {
@@ -107,7 +96,7 @@ export function AppLayout() {
     }));
   };
 
-  const openPopup = (content: JobDetails) => {
+  const openPopup = (content: IJobDescription) => {
     setPopupContent(content);
     setShowPopup(true);
   };
@@ -117,7 +106,7 @@ export function AppLayout() {
   };
 
   // Filter function to check if the company name includes the search query
-  const filterByCompany = (job: JobDetails) => {
+  const filterByCompany = (job: IJobDescription) => {
     return job.companyName.toLowerCase().includes(searchCompany.toLowerCase());
   };
 
@@ -137,7 +126,7 @@ export function AppLayout() {
       {showPopup && popupContent && (
         <PopupCard content={popupContent} onClose={() => setShowPopup(false)} />
       )}
-      <Box sx={{ marginBottom: 2 }}>
+      {/* <Box sx={{ marginBottom: 2 }}>
         <TextField
           select
           name="role"
@@ -221,8 +210,14 @@ export function AppLayout() {
         <Button variant="contained" onClick={fetchData}>
           Apply Filters
         </Button>
-      </Box>
-      <Grid container rowGap={3} justifyContent="center">
+      </Box> */}
+      <JobFilters
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onSearchChange={handleSearchChange}
+        onApplyFilters={fetchData}
+      />
+      <Grid container rowGap={8} justifyContent="center">
         {data?.jdList
           .filter((job) => {
             // Filter jobs based on selected filter values

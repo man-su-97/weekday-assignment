@@ -1,10 +1,10 @@
 import "./App.css";
-import { JobCard } from "./Components/JobCard/JobCard";
+import { JobListings } from "./Components/JobListing/JobListings";
 
 function App() {
   return (
     <>
-      <JobCard />
+      <JobListings />
     </>
   );
 }

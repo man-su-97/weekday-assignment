@@ -1,30 +1,17 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import BoltOutlinedIcon from "@mui/icons-material/BoltOutlined";
 import HourglassTopRoundedIcon from "@mui/icons-material/HourglassTopRounded";
+import { IJobDescription } from "../../types/proptypes";
+import "./JobCard.css";
 
 interface CardProps {
   content: IJobDescription;
   openPopup: (content: IJobDescription) => void;
 }
 
-interface IJobDescription {
-  companyName: string;
-  jdLink: string;
-  jdUid: string;
-  jobDetailsFromCompany: string;
-  jobRole: string;
-  location: string;
-  logoUrl: string;
-  maxExp: number;
-  maxJdSalary: number;
-  minExp: number;
-  minJdSalary: number;
-  salaryCurrencyCode: string;
-}
-
 const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
-  const snippet = content.jobDetailsFromCompany.slice(0, 250);
-  const blurredText = content.jobDetailsFromCompany.slice(400, 700);
+  const snippet = content.jobDetailsFromCompany.slice(0, 400);
+  const blurredText = content.jobDetailsFromCompany.slice(400, 600);
 
   return (
     <div className="job-card">
@@ -47,7 +34,7 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
           </Box>
         </div>
       </div>
-      <div className="card-body">
+      <Box sx={{ padding: 2 }}>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ paddingTop: 2 }}>
             <Avatar
@@ -77,15 +64,35 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
             Estimated Salary:{content.minJdSalary}-{content.maxJdSalary}{" "}
             {content.salaryCurrencyCode}
           </Typography>
+          <Typography>About Company:</Typography>
           <Typography sx={{ fontSize: 13 }}>{snippet}</Typography>
           {blurredText && (
-            <Typography sx={{ fontSize: 13 }} className="blur-text">
-              {blurredText}
-            </Typography>
+            <Box sx={{ position: "relative" }}>
+              <Typography sx={{ fontSize: 13 }} className="blur-text">
+                {blurredText}
+              </Typography>
+              {blurredText && (
+                <Button
+                  sx={{ position: "absolute", bottom: 2, left: "10rem" }}
+                  size="small"
+                  onClick={() => openPopup(content)}
+                >
+                  <Typography sx={{ color: "#7B77E5", fontWeight: "bold" }}>
+                    View Job
+                  </Typography>
+                </Button>
+              )}
+            </Box>
           )}
-          {blurredText && (
-            <Button onClick={() => openPopup(content)}>Read More</Button>
-          )}
+          {/* {blurredText && (
+            <Button size="small" onClick={() => openPopup(content)}>
+              <Typography
+                sx={{ color: "#7B77E5", fontSize: 12, fontWeight: "bold" }}
+              >
+                View Job
+              </Typography>
+            </Button>
+          )} */}
 
           <Typography>Minimum Experience</Typography>
           <Typography>
@@ -94,7 +101,7 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
               : "Not specified"}{" "}
           </Typography>
         </Box>
-      </div>
+      </Box>
 
       <div className="card-bottom">
         <Button

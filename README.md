@@ -1,8 +1,10 @@
 # Candidate Application Platform
 
-     An web application that allows users to view job listings, filter jobs based on various criteria, and features infinite scroll for a seamless browsing experience.The platform provides a user-friendly interface for viewing and applying to jobs.
+Welcome to our Candidate Application Platform! This web application offers a seamless experience for users to explore job listings, apply filters based on various criteria, and effortlessly browse through endless opportunities. Here's a brief overview of what our platform offers:
 
-## **How to install and run locally ?**
+## How to Install and Run Locally?
+
+To get started with our platform locally, follow these simple steps:
 
 ```
 $ git clone https://github.com/man-su-97/weekday-assignment.git
@@ -11,26 +13,34 @@ $ npm install
 $ npm run dev
 ```
 
-## **Technologies used :**
+## Technologies Used:
+
+Our platform is built using the following technologies:
 
 - React JS
 - CSS
-- Material Ui
+- Material UI
 - mockbee server
 - Axios HTTP Client
 
-## **Features :**
+## Key Features:
+
+Explore the following features on our platform:
 
 - Home Page
 - Job Listing Page
 - Search Companies
-- Filters by
+- Advanced Filters, including:
   - Role
   - Location
-  - Min Experience
-  - Company name
-  - Remote/onsite
-- Infinite Scroll
-- Responsive UI
+  - Minimum Experience
+  - Company Name
+  - Remote/Onsite Jobs
+- Infinite Scroll for seamless browsing
+- Responsive User Interface
 
-## **Demo :**
+## Demo:
+
+Experience our platform's functionality firsthand by visiting [Demo](insert-demo-link-here).
+
+Thank you for considering our Candidate Application Platform!

@@ -1,0 +1,32 @@
+.job-card {
+    background-color: #fefffe;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
+    padding: 5px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
+}
+
+
+.blur-text {
+    filter: blur(1px); 
+}
+
+.post-time {
+    display: flex;
+    font-size: 10px;
+    color: #666;
+}
