@@ -1,20 +1,20 @@
-import { TextField, MenuItem, Button, Box } from "@mui/material";
+import { TextField, MenuItem, Box } from "@mui/material";
+import { IFilterParams } from "../../types/proptypes";
+import { JobLocation, JobRoles, YearsOfExperience } from "../../constants";
 
 interface FilterProps {
-  filters: object;
+  filters: IFilterParams;
   onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onApplyFilters: () => void;
 }
 
 const JobFilters: React.FC<FilterProps> = ({
   filters,
   onFilterChange,
   onSearchChange,
-  onApplyFilters,
 }) => {
   return (
-    <Box sx={{ marginBottom: 2 }}>
+    <Box sx={{ marginBottom: 2, paddingX: 2 }}>
       <TextField
         select
         name="role"
@@ -25,15 +25,11 @@ const JobFilters: React.FC<FilterProps> = ({
         size="small"
         sx={{ marginRight: 2, width: 80 }}
       >
-        <MenuItem value="">All</MenuItem>
-        <MenuItem value="frontend">Frontend</MenuItem>
-        <MenuItem value="backend">Backend</MenuItem>
-        <MenuItem value="ios">IOS</MenuItem>
-        <MenuItem value="fullstack">FullStack</MenuItem>
-        <MenuItem value="flutter">Flutter</MenuItem>
-        <MenuItem value="android">Andriod</MenuItem>
-        <MenuItem value="web3">Web3</MenuItem>
-        <MenuItem value="tech lead">Tech-Lead</MenuItem>
+        {JobRoles.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </TextField>
       <TextField
         select
@@ -45,17 +41,11 @@ const JobFilters: React.FC<FilterProps> = ({
         size="small"
         sx={{ marginRight: 2, width: 130 }}
       >
-        <MenuItem value="">All</MenuItem>
-        <MenuItem value="1">1</MenuItem>
-        <MenuItem value="2">2</MenuItem>
-        <MenuItem value="3">3</MenuItem>
-        <MenuItem value="4">4</MenuItem>
-        <MenuItem value="5">5</MenuItem>
-        <MenuItem value="6">6</MenuItem>
-        <MenuItem value="7">7</MenuItem>
-        <MenuItem value="8">8</MenuItem>
-        <MenuItem value="9">9</MenuItem>
-        <MenuItem value="10">10</MenuItem>
+        {YearsOfExperience.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </TextField>
       <TextField
         select
@@ -67,11 +57,11 @@ const JobFilters: React.FC<FilterProps> = ({
         size="small"
         sx={{ marginRight: 2, width: 110 }}
       >
-        <MenuItem value="">All</MenuItem>
-        <MenuItem value="bangalore">Bangalore</MenuItem>
-        <MenuItem value="mumbai">Mumbai</MenuItem>
-        <MenuItem value="delhi ncr">Delhi NCR</MenuItem>
-        <MenuItem value="chennai">Chennai</MenuItem>
+        {JobLocation.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </TextField>
       <TextField
         select
@@ -95,9 +85,6 @@ const JobFilters: React.FC<FilterProps> = ({
         size="small"
         sx={{ marginRight: 2, width: 200 }}
       />
-      <Button variant="contained" onClick={onApplyFilters}>
-        Apply Filters
-      </Button>
     </Box>
   );
 };

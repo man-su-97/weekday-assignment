@@ -12,5 +12,12 @@ interface IJobDescription {
     minJdSalary: number;
     salaryCurrencyCode: string;
   }
+  interface IFilterParams {
+    role: string;
+    experience: string;
+    location: string;
+    remote: string;
+    searchCompany?:string,
+  }
 
-  export {IJobDescription}
+  export {IJobDescription,IFilterParams}

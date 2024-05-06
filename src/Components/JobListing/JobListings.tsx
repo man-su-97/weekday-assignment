@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Skeleton, useTheme } from "@mui/material";
 import axios from "axios";
 import { JobCard } from "../JobCard/JobCard";
 import { IJobDescription } from "../../types/proptypes";
@@ -27,6 +27,7 @@ export function JobListings() {
     null
   );
   const [searchCompany, setSearchCompany] = useState("");
+  const theme = useTheme();
 
   useEffect(() => {
     fetchData();
@@ -37,15 +38,17 @@ export function JobListings() {
       if (!containerRef.current) return;
 
       const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
+
       if (scrollTop + clientHeight >= scrollHeight && !loading) {
         fetchData();
       }
     };
 
-    containerRef.current?.addEventListener("scroll", handleScroll);
+    const container = containerRef.current;
+    container?.addEventListener("scroll", handleScroll);
 
     return () => {
-      containerRef.current?.removeEventListener("scroll", handleScroll);
+      container?.removeEventListener("scroll", handleScroll);
     };
   }, [loading]);
 
@@ -62,15 +65,11 @@ export function JobListings() {
         offset: offset,
       };
 
-      console.log("Fetching data...");
-
       const response = await axios.post(
         "https://api.weekday.technology/adhoc/getSampleJdJSON",
         body,
         { headers: myHeaders }
       );
-
-      console.log("Data received:", response.data);
 
       setData((prevData) => ({
         jdList: prevData
@@ -107,29 +106,31 @@ export function JobListings() {
     return job.companyName.toLowerCase().includes(searchCompany.toLowerCase());
   };
 
-  console.log(data);
+  console.log("loading state-", loading);
 
   return (
     <Box
       sx={{
-        height: "calc(100vh - 64px)",
+        height: "100%",
         width: "100%",
-        padding: 2,
+        padding: 0,
         position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
       }}
       ref={containerRef}
     >
       {showPopup && popupContent && (
         <PopupCard content={popupContent} onClose={() => setShowPopup(false)} />
       )}
-
       <JobFilters
         filters={filters}
         onFilterChange={handleFilterChange}
         onSearchChange={handleSearchChange}
-        onApplyFilters={fetchData}
       />
-      <Grid container rowGap={8} justifyContent="center">
+
+      {/* <Grid container rowGap={8} justifyContent="center">
         {data?.jdList
           .filter((job) => {
             return (
@@ -148,8 +149,60 @@ export function JobListings() {
               <JobCard content={item} openPopup={openPopup} />
             </Grid>
           ))}
-      </Grid>
-      {loading && <Typography>Loading...</Typography>}
+      </Grid> */}
+
+      <Box
+        sx={{
+          flex: 1,
+          overflow: "hidden",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          [theme.breakpoints.down("xl")]: {
+            gridTemplateColumns: "repeat(3, 1fr)",
+          },
+          [theme.breakpoints.down("md")]: {
+            gridTemplateColumns: "repeat(2, 1fr)",
+          },
+          [theme.breakpoints.down("sm")]: {
+            gridTemplateColumns: "repeat(1, 1fr)",
+          },
+          gridTemplateRows: "min-content auto 0fr 1fr",
+          gap: 5,
+          px: 2,
+          scrollbarGutter: "stable",
+        }}
+      >
+        {data?.jdList
+          .filter((job) => {
+            return (
+              filterByCompany(job) &&
+              (filters.role === "" || job.jobRole === filters.role) &&
+              (filters.experience === "" ||
+                job.minExp === parseInt(filters.experience)) &&
+              (filters.location === "" || job.location === filters.location) &&
+              (filters.remote === "" ||
+                (filters.remote === "remote" && job.location === "remote") ||
+                (filters.remote === "onsite" && job.location !== "remote"))
+            );
+          })
+          .map((item, index) => (
+            <JobCard content={item} openPopup={openPopup} key={index} />
+          ))}
+      </Box>
+      {loading && (
+        <Box>
+          <Box>
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </Box>
+          <Box>
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }
