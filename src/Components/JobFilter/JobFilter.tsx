@@ -3,7 +3,13 @@ import { IFilterParams } from "../../types/proptypes";
 import { JobLocation, JobRoles, YearsOfExperience } from "../../constants";
 
 interface FilterProps {
-  filters: IFilterParams;
+  filters: {
+    role: string;
+    experience: string;
+    location: string;
+    remote: string;
+    searchCompany: string;
+  };
   onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
