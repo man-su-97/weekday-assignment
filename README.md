@@ -41,7 +41,7 @@ Explore the following features on our platform:
 
 ## Demo:
 
-Experience our platform's functionality firsthand by visiting [Demo]
+Experience our platform's functionality firsthand by visiting [https://job-portal-nu-jade.vercel.app/]
 [Screenshot from 2024-05-07 00-33-37]
 
 Thank you for considering our Candidate Application Platform!
