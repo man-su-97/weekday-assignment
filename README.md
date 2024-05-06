@@ -1,4 +1,3 @@
-![Screenshot from 2024-05-07 00-33-37](https://github.com/man-su-97/weekday-assignment/assets/52149720/7138c8eb-24e8-4767-b181-7c68b6636e84)
 # Candidate Application Platform
 
 Welcome to our Candidate Application Platform! This web application offers a seamless experience for users to explore job listings, apply filters based on various criteria, and effortlessly browse through endless opportunities. Here's a brief overview of what our platform offers:
@@ -46,3 +45,5 @@ Experience our platform's functionality firsthand by visiting [Demo]
 [Screenshot from 2024-05-07 00-33-37]
 
 Thank you for considering our Candidate Application Platform!
+
+![Screenshot from 2024-05-07 00-33-37](https://github.com/man-su-97/weekday-assignment/assets/52149720/7138c8eb-24e8-4767-b181-7c68b6636e84)
