@@ -41,7 +41,7 @@ Explore the following features on our platform:
 
 ## Demo:
 
-Experience our platform's functionality firsthand by visiting [Demo](insert-dem![Screenshot from 2024-05-07 00-33-37](https://github.com/man-su-97/weekday-assignment/assets/52149720/ee36c185-acdc-4f51-b97e-cce602bfe81e)
-o-link-here).
+Experience our platform's functionality firsthand by visiting [Demo]
+[Screenshot from 2024-05-07 00-33-37]
 
 Thank you for considering our Candidate Application Platform!
