@@ -7,7 +7,7 @@ interface FilterProps {
     experience: string;
     location: string;
     remote: string;
-    searchCompany: string;
+    searchCompany?: string;
   };
   onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
