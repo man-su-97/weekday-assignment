@@ -4,7 +4,7 @@ const JobRoles = [
     label: "All",
   },
   {
-    value: "fronted",
+    value: "frontend",
     label: "Frontend",
   },
   {

@@ -1,5 +1,4 @@
 import { TextField, MenuItem, Box } from "@mui/material";
-import { IFilterParams } from "../../types/proptypes";
 import { JobLocation, JobRoles, YearsOfExperience } from "../../constants";
 
 interface FilterProps {
