@@ -134,7 +134,7 @@ export function JobListings() {
         sx={{
           flex: 1,
           display: "grid",
-          overflow: "hidden",
+          overflow: "auto",
           gridTemplateColumns: "repeat(4, 1fr)",
           [theme.breakpoints.down("xl")]: {
             gridTemplateColumns: "repeat(3, 1fr)",
