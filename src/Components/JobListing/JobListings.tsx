@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, Skeleton, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import axios from "axios";
 import { JobCard } from "../JobCard/JobCard";
 import { IJobDescription } from "../../types/proptypes";
 import PopupCard from "../JobDetailsPopup/JDPopupCard";
 import JobFilters from "../JobFilter/JobFilter";
+import SkeletonLoading from "../LoadingScreen/LoadingSkeleton";
 
 interface ApiResponse {
   jdList: IJobDescription[];
@@ -29,26 +30,28 @@ export function JobListings() {
   const [searchCompany, setSearchCompany] = useState("");
   const theme = useTheme();
 
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-
-      if (scrollTop + clientHeight >= scrollHeight && !loading) {
+    const handleIntersect = (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && !loading) {
         fetchData();
       }
     };
 
-    const container = containerRef.current;
-    container?.addEventListener("scroll", handleScroll);
+    observerRef.current = new IntersectionObserver(handleIntersect);
+
+    if (containerRef.current) {
+      observerRef.current.observe(containerRef.current);
+    }
 
     return () => {
-      container?.removeEventListener("scroll", handleScroll);
+      observerRef.current?.disconnect();
     };
   }, [loading]);
 
@@ -105,19 +108,16 @@ export function JobListings() {
   const filterByCompany = (job: IJobDescription) => {
     return job.companyName.toLowerCase().includes(searchCompany.toLowerCase());
   };
-
-  console.log("loading state-", loading);
-
   return (
     <Box
       sx={{
-        height: "100%",
-        width: "100%",
-        padding: 0,
+        height: "calc(100vh-64px)",
+        width: "calc(100vw-20px)",
         position: "relative",
         display: "flex",
         flexDirection: "column",
         gap: 3,
+        overflow: "auto",
       }}
       ref={containerRef}
     >
@@ -130,32 +130,11 @@ export function JobListings() {
         onSearchChange={handleSearchChange}
       />
 
-      {/* <Grid container rowGap={8} justifyContent="center">
-        {data?.jdList
-          .filter((job) => {
-            return (
-              filterByCompany(job) &&
-              (filters.role === "" || job.jobRole === filters.role) &&
-              (filters.experience === "" ||
-                job.minExp === parseInt(filters.experience)) &&
-              (filters.location === "" || job.location === filters.location) &&
-              (filters.remote === "" ||
-                (filters.remote === "remote" && job.location === "remote") ||
-                (filters.remote === "onsite" && job.location !== "remote"))
-            );
-          })
-          .map((item, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-              <JobCard content={item} openPopup={openPopup} />
-            </Grid>
-          ))}
-      </Grid> */}
-
       <Box
         sx={{
           flex: 1,
-          overflow: "hidden",
           display: "grid",
+          overflow: "hidden",
           gridTemplateColumns: "repeat(4, 1fr)",
           [theme.breakpoints.down("xl")]: {
             gridTemplateColumns: "repeat(3, 1fr)",
@@ -189,20 +168,7 @@ export function JobListings() {
             <JobCard content={item} openPopup={openPopup} key={index} />
           ))}
       </Box>
-      {loading && (
-        <Box>
-          <Box>
-            <Skeleton />
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-          </Box>
-          <Box>
-            <Skeleton />
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-          </Box>
-        </Box>
-      )}
+      {loading && <SkeletonLoading />}
     </Box>
   );
 }
