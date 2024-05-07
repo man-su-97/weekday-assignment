@@ -37,7 +37,7 @@ export function JobListings() {
   }, []);
 
   useEffect(() => {
-    const handleIntersect = (entries) => {
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
       if (entry.isIntersecting && !loading) {
         fetchData();
