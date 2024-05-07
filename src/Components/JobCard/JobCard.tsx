@@ -40,11 +40,20 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
         <Box sx={{ padding: 2 }}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ paddingTop: 2 }}>
-              <Avatar
+              {/* <Avatar
                 sx={{ width: 45, height: 45 }}
                 alt="Cindy Baker"
                 src={content.logoUrl}
-              />
+              /> */}
+              {content.logoUrl ? (
+                <Avatar
+                  sx={{ width: 45, height: 45 }}
+                  alt={content.companyName}
+                  src={content.logoUrl}
+                />
+              ) : (
+                "NA"
+              )}
             </Box>
 
             <Box
@@ -55,20 +64,32 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
                 textAlign: "left",
               }}
             >
-              <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
+              <Typography
+                sx={{ fontSize: 13, fontWeight: "bold", color: "#8b8b8b" }}
+              >
                 {content.companyName}
               </Typography>
-              <Typography sx={{ fontSize: 12 }}>{content.jobRole}</Typography>
-              <Typography sx={{ fontSize: 11 }}>{content.location}</Typography>
+              <Typography sx={{ fontSize: 14 }}>{content.jobRole}</Typography>
+              <Typography sx={{ fontSize: 11, fontWeight: "500" }}>
+                {content.location}
+              </Typography>
             </Box>
           </Box>
           <Box sx={{ padding: 0.5, textAlign: "left" }}>
-            <Typography sx={{ paddingBottom: 1 }}>
-              Estimated Salary:{content.minJdSalary}-{content.maxJdSalary}{" "}
-              {content.salaryCurrencyCode}
+            <Typography
+              sx={{ paddingBottom: 1, color: "#313131", fontWeight: "400" }}
+            >
+              Estimated Salary:{" "}
+              {content.minJdSalary && content.maxJdSalary
+                ? `${content.minJdSalary}-${content.maxJdSalary} ${content.salaryCurrencyCode}`
+                : "NA"}
             </Typography>
-            <Typography>About Company:</Typography>
-            <Typography sx={{ fontSize: 13 }}>{snippet}</Typography>
+            <Typography
+              sx={{ fontSize: "1rem", fontWeight: "500", color: "#000000DE" }}
+            >
+              About Company:
+            </Typography>
+            <Typography sx={{ fontSize: 14 }}>{snippet}</Typography>
             {blurredText && (
               <Box sx={{ position: "relative" }}>
                 <Typography sx={{ fontSize: 13 }} className="blur-text">
@@ -99,8 +120,17 @@ const JobCard: React.FC<CardProps> = ({ content, openPopup }) => {
             </Button>
           )} */}
 
-            <Typography>Minimum Experience</Typography>
-            <Typography>
+            <Typography
+              sx={{
+                marginTop: 1,
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#8b8b8b",
+              }}
+            >
+              Minimum Experience
+            </Typography>
+            <Typography sx={{ fontSize: 14 }}>
               {content.minExp != null
                 ? `${content.minExp} years`
                 : "Not specified"}{" "}

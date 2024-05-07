@@ -17,6 +17,8 @@ export function JobListings() {
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [minBasePay, setMinBasePay] = useState("");
+
   const [filters, setFilters] = useState({
     role: "",
     experience: "",
@@ -88,12 +90,23 @@ export function JobListings() {
     }
   };
 
+  // const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setFilters((prevFilters) => ({
+  //     ...prevFilters,
+  //     [name]: value,
+  //   }));
+  // };
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
+    if (name === "minBasePay") {
+      setMinBasePay(value); // Update minBasePay state
+    } else {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [name]: value,
+      }));
+    }
   };
 
   const openPopup = (content: IJobDescription) => {
@@ -155,6 +168,7 @@ export function JobListings() {
           .filter((job) => {
             return (
               filterByCompany(job) &&
+              (minBasePay === "" || job.minJdSalary >= parseInt(minBasePay)) &&
               (filters.role === "" || job.jobRole === filters.role) &&
               (filters.experience === "" ||
                 job.minExp === parseInt(filters.experience)) &&

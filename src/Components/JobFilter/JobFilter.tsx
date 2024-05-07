@@ -8,6 +8,7 @@ interface FilterProps {
     location: string;
     remote: string;
     searchCompany?: string;
+    minBasePay?: string;
   };
   onFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +20,7 @@ const JobFilters: React.FC<FilterProps> = ({
   onSearchChange,
 }) => {
   return (
-    <Box sx={{ marginBottom: 2, paddingX: 2 }}>
+    <Box sx={{ marginBottom: 2, padding: 2 }}>
       <TextField
         select
         name="role"
@@ -82,6 +83,16 @@ const JobFilters: React.FC<FilterProps> = ({
         <MenuItem value="onsite">On-Site</MenuItem>
         <MenuItem value="remote">Remote</MenuItem>
       </TextField>
+      <TextField
+        label="Minimum Base Pay"
+        variant="outlined"
+        value={filters.minBasePay}
+        onChange={onFilterChange} // Use onFilterChange handler
+        size="small"
+        type="number" // Set input type to "number"
+        name="minBasePay" // Set the name attribute to "minBasePay"
+        sx={{ marginRight: 2, width: 200 }}
+      />
       <TextField
         label="Search Company"
         variant="outlined"

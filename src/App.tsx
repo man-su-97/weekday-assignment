@@ -1,10 +1,10 @@
 import "./App.css";
-import { JobListings } from "./Components/JobListing/JobListings";
+import { AppLayout } from "./layouts/AppLayout/AppLayout";
 
 function App() {
   return (
     <>
-      <JobListings />
+      <AppLayout />
     </>
   );
 }
